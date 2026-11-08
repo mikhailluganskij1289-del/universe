@@ -1,0 +1,316 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#090914">
+<title>UNIVERSE</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;background:#080812;color:#f4f2ff;
+ font-family:Arial,sans-serif;
+ background-image:radial-gradient(ellipse at 80% 10%,#42247755,transparent 40%);
+}
+.layout{display:grid;grid-template-columns:230px 1fr;min-height:100vh}
+aside{padding:25px 18px;background:#0c0c1b;border-right:1px solid #30234b}
+.logo{font-size:23px;font-weight:900;letter-spacing:3px;margin-bottom:35px}
+.logo span{color:#a77aff}
+nav a{display:block;padding:13px;margin:5px 0;border-radius:10px;color:#aaa5c4;text-decoration:none}
+nav a:hover{background:#292044;color:white}
+main{padding:35px}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:35px;gap:10px}
+button{
+ border:0;border-radius:11px;padding:12px 18px;color:white;
+ font-weight:bold;cursor:pointer;
+ background:linear-gradient(100deg,#965cff,#398fe9)
+}
+button:disabled{opacity:.6;cursor:wait}
+.hero{
+ padding:55px 35px;border:1px solid #7754a955;border-radius:22px;
+ background:linear-gradient(120deg,#482b7755,#162b5555);
+ box-shadow:0 15px 55px #0006;
+}
+.small{color:#bd9aff;letter-spacing:3px;font-size:11px;font-weight:bold}
+h1{font-size:clamp(35px,6vw,65px);margin:18px 0}
+h1 span{background:linear-gradient(90deg,#c5a7ff,#66caff);background-clip:text;color:transparent}
+p{color:#aaa7c3;line-height:1.6}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-top:25px}
+.card{padding:20px;background:#151429;border:1px solid #49366a;border-radius:16px}
+.card h3{margin-top:0}
+.card p{font-size:13px}
+.number{font-size:28px;font-weight:bold}
+.section{margin-top:35px}
+.features{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+.feature{padding:20px;background:#141329;border:1px solid #49366a;border-radius:15px}
+footer{margin-top:30px;padding:15px;border:1px dashed #7754a9;border-radius:12px;color:#aaa7c3;font-size:12px}
+
+/* Окно авторизации */
+.modal{
+ display:none;position:fixed;inset:0;z-index:10;
+ background:#000b;align-items:center;justify-content:center;
+ padding:15px;
+}
+.modal.active{display:flex}
+.auth-box{
+ width:100%;max-width:390px;padding:28px;
+ background:#121126;border:1px solid #7754a9;
+ border-radius:20px;box-shadow:0 15px 60px #000b;
+}
+.auth-box h2{margin-top:0}
+.auth-box input{
+ width:100%;padding:14px;margin:8px 0;
+ border-radius:10px;border:1px solid #49366a;
+ background:#080812;color:white;font-size:15px;
+ outline:none;
+}
+.auth-box input:focus{border-color:#a77aff}
+.auth-box button{width:100%;margin-top:10px}
+.switch{
+ background:none;color:#bd9aff;padding:10px;
+}
+.close{
+ float:right;background:#292044;padding:7px 12px;
+}
+#authError{color:#ff829b;font-size:13px;min-height:18px}
+#userInfo{font-size:13px;color:#bd9aff}
+#logoutBtn{background:#38233f}
+
+@media(max-width:750px){
+ .layout{grid-template-columns:1fr}
+ aside{padding:15px;border-right:0;border-bottom:1px solid #30234b}
+ .logo{margin-bottom:12px}
+ nav{display:flex;overflow-x:auto}
+ nav a{white-space:nowrap;padding:10px}
+ main{padding:18px 14px}
+ .hero{padding:30px 20px}
+ .cards,.features{grid-template-columns:1fr}
+ .top{gap:10px;flex-wrap:wrap}
+}
+</style>
+</head>
+
+<body>
+<div class="layout">
+<aside>
+ <div class="logo"><span>✦</span> UNIVERSE</div>
+ <nav>
+  <a href="#home">⌂ Главная</a>
+  <a href="#community">◉ Сообщество</a>
+  <a href="#messages">✉ Сообщения</a>
+  <a href="#profile">◎ Мой профиль</a>
+  <a href="#settings">⚙ Настройки</a>
+ </nav>
+</aside>
+
+<main id="home">
+ <div class="top">
+  <span>Портал / Главная</span>
+  <div>
+   <span id="userInfo">Гость</span>
+   <button id="authButton">Войти / Регистрация</button>
+   <button id="logoutBtn" style="display:none">Выйти</button>
+  </div>
+ </div>
+
+ <section class="hero">
+  <div class="small">✦ ТВОЯ ВСЕЛЕННАЯ — ТВОИ ПРАВИЛА</div>
+  <h1>Добро пожаловать<br>в <span>UNIVERSE</span></h1>
+  <p>Место, где встречаются идеи, люди и интересы. Создай свой профиль, делись моментами и найди своё сообщество.</p>
+  <button id="createButton">Создать аккаунт ↗</button>
+ </section>
+
+ <section class="section" id="community">
+  <h2>UNIVERSE в цифрах</h2>
+  <p>Статистика нашего сообщества</p>
+  <div class="cards">
+   <div class="card">Участники<div class="number">—</div><p>Первые пользователи скоро появятся</p></div>
+   <div class="card">Публикации<div class="number">—</div><p>Делись своими идеями</p></div>
+   <div class="card">Сообщения<div class="number">—</div><p>Общение будет здесь</p></div>
+  </div>
+ </section>
+
+ <section class="section">
+  <h2>Что тебя ждёт</h2>
+  <div class="features">
+   <div class="feature"><h3>◎ Профиль</h3><p>Аватар, описание и оформление.</p></div>
+   <div class="feature"><h3>✉ Общение</h3><p>Друзья и личные сообщения.</p></div>
+   <div class="feature"><h3>✧ Сообщество</h3><p>Публикации и обсуждения.</p></div>
+  </div>
+ </section>
+
+ <footer>UNIVERSE — ТВОЯ ВСЕЛЕННАЯ.</footer>
+</main>
+</div>
+
+<!-- Окно входа и регистрации -->
+<div class="modal" id="authModal">
+ <div class="auth-box">
+  <button class="close" id="closeModal">✕</button>
+  <h2 id="formTitle">Вход в UNIVERSE</h2>
+  <p id="formDescription">Рады видеть тебя снова!</p>
+
+  <form id="authForm">
+   <input id="email" type="email" placeholder="Электронная почта" required>
+   <input id="password" type="password" placeholder="Пароль (от 6 символов)" minlength="6" required>
+   <p id="authError"></p>
+   <button id="submitButton" type="submit">Войти</button>
+  </form>
+
+  <button class="switch" id="switchMode">
+   Нет аккаунта? Зарегистрироваться
+  </button>
+ </div>
+</div>
+
+<script type="module">
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/13.2.0/firebase-app.js";
+
+import {
+ getAuth,
+ createUserWithEmailAndPassword,
+ signInWithEmailAndPassword,
+ signOut,
+ onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/13.2.0/firebase-auth.js";
+
+const firebaseConfig = {
+ apiKey: "AIzaSyDCyrMVJ7rA_W0B2PHteqxmi8Y5Z2poBVg",
+ authDomain: "universe-192fc.firebaseapp.com",
+ projectId: "universe-192fc",
+ storageBucket: "universe-192fc.firebasestorage.app",
+ messagingSenderId: "830776532395",
+ appId: "1:830776532395:web:c7fbe51b95ad1e9d7a46ee",
+ measurementId: "G-07SWNNJGEW"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+const modal = document.getElementById("authModal");
+const form = document.getElementById("authForm");
+const error = document.getElementById("authError");
+const title = document.getElementById("formTitle");
+const description = document.getElementById("formDescription");
+const submit = document.getElementById("submitButton");
+const switchMode = document.getElementById("switchMode");
+
+let isRegister = false;
+
+function openModal(register = false) {
+ isRegister = register;
+ updateForm();
+ error.textContent = "";
+ modal.classList.add("active");
+}
+
+function updateForm() {
+ title.textContent = isRegister
+  ? "Создание аккаунта"
+  : "Вход в UNIVERSE";
+
+ description.textContent = isRegister
+  ? "Присоединяйся к нашей вселенной!"
+  : "Рады видеть тебя снова!";
+
+ submit.textContent = isRegister
+  ? "Зарегистрироваться"
+  : "Войти";
+
+ switchMode.textContent = isRegister
+  ? "Уже есть аккаунт? Войти"
+  : "Нет аккаунта? Зарегистрироваться";
+}
+
+document.getElementById("authButton").onclick =
+ () => openModal(false);
+
+document.getElementById("createButton").onclick =
+ () => openModal(true);
+
+document.getElementById("closeModal").onclick =
+ () => modal.classList.remove("active");
+
+switchMode.onclick = () => {
+ isRegister = !isRegister;
+ error.textContent = "";
+ updateForm();
+};
+
+modal.addEventListener("click", e => {
+ if (e.target === modal) {
+  modal.classList.remove("active");
+ }
+});
+
+form.addEventListener("submit", async e => {
+ e.preventDefault();
+
+ const email = document.getElementById("email").value.trim();
+ const password = document.getElementById("password").value;
+
+ error.textContent = "";
+ submit.disabled = true;
+
+ try {
+  if (isRegister) {
+   await createUserWithEmailAndPassword(
+    auth, email, password
+   );
+  } else {
+   await signInWithEmailAndPassword(
+    auth, email, password
+   );
+  }
+
+  modal.classList.remove("active");
+  form.reset();
+
+ } catch (err) {
+  const messages = {
+   "auth/email-already-in-use": "Эта почта уже зарегистрирована.",
+   "auth/invalid-email": "Неверный формат электронной почты.",
+   "auth/weak-password": "Пароль слишком слабый.",
+   "auth/invalid-credential": "Неверная почта или пароль.",
+   "auth/network-request-failed": "Проверь подключение к интернету."
+  };
+
+  error.textContent =
+   messages[err.code] || "Ошибка: " + err.message;
+
+ } finally {
+  submit.disabled = false;
+ }
+});
+
+document.getElementById("logoutBtn").onclick =
+ async () => {
+  try {
+   await signOut(auth);
+  } catch (err) {
+   alert("Не удалось выйти из аккаунта.");
+  }
+ };
+
+onAuthStateChanged(auth, user => {
+ const info = document.getElementById("userInfo");
+ const authButton = document.getElementById("authButton");
+ const logoutButton = document.getElementById("logoutBtn");
+
+ if (user) {
+  info.textContent = user.email;
+  authButton.style.display = "none";
+  logoutButton.style.display = "inline-block";
+ } else {
+  info.textContent = "Гость";
+  authButton.style.display = "inline-block";
+  logoutButton.style.display = "none";
+ }
+});
+</script>
+
+</body>
+</html>
